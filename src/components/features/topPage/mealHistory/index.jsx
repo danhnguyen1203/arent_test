@@ -1,5 +1,6 @@
 import React from 'react';
 import { mockMealData } from '../../../../data';
+import { useTopMealHistory } from '../../../../hooks/queries/useTopPage';
 
 const MealCard = ({ image, date, type }) => (
     <div className="relative">
@@ -14,9 +15,21 @@ const MealCard = ({ image, date, type }) => (
     </div>
 );
 const MealHistory = () => {
+    const { data, isLoading, error } = useTopMealHistory();
+    if (isLoading) {
+        return <div className="grid grid-cols-2 md:grid-cols-4 py-8 px-24">
+            {[...Array(8)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-gray-200 aspect-square" />
+            ))}
+        </div>;
+    }
+
+    if (error) {
+        return <div>Error loading meal history</div>;
+    }
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 py-8 px-24">
-            {mockMealData.map((meal) => (
+            {data.map((meal) => (
                 <MealCard key={meal.id} {...meal} />
             ))}
         </div>
