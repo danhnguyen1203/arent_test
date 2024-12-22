@@ -18,7 +18,7 @@ const App = () => {
               <TopPage />
             </ProtectedRoute>
           } />
-          <Route path="my-record" element={
+          <Route path="records" element={
             <ProtectedRoute>
               <MyRecordPage />
             </ProtectedRoute>
