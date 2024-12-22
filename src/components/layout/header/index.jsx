@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { MdOutlineNotifications } from 'react-icons/md';
 import { FiFileText, FiMenu, FiX } from 'react-icons/fi';
 import { GiTrophy } from 'react-icons/gi';
+import useAuth from '../../../hooks/authentication/useAuth';
 
 const DrawerMenu = ({ isOpen }) => {
     const menuItems = [
@@ -53,6 +54,7 @@ const NavLink = ({ href, icon: Icon, children }) => {
 };
 
 const Header = () => {
+    const { logout, token } = useAuth();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     return (
@@ -67,18 +69,32 @@ const Header = () => {
                             />
                         </Link>
                         <nav className="flex items-center space-x-6">
-                            <NavLink href="/" icon={FiFileText}>自分の記録</NavLink>
-                            <NavLink href="/records" icon={GiTrophy}>チャレンジ</NavLink>
-                            <NavLink href="/column" icon={MdOutlineNotifications}>お知らせ</NavLink>
-                            <div className="relative">
-                                <button
-                                    onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-                                    className="p-1 text-[#FF963C] transition-colors"
-                                >
-                                    {isDrawerOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-                                </button>
-                                <DrawerMenu isOpen={isDrawerOpen} />
-                            </div>
+                            {token ?
+                                <>
+                                    <NavLink href="/" icon={FiFileText}>自分の記録</NavLink>
+                                    <NavLink href="/records" icon={GiTrophy}>チャレンジ</NavLink>
+                                    <NavLink href="/column" icon={MdOutlineNotifications}>お知らせ</NavLink>
+                                    <div className="relative">
+                                        <button
+                                            onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+                                            className="p-1 text-[#FF963C] transition-colors"
+                                        >
+                                            {isDrawerOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+                                        </button>
+                                        <DrawerMenu isOpen={isDrawerOpen} />
+                                    </div>
+                                    <button
+                                        onClick={logout}
+                                        className="text-white hover:text-[#FF963C]"
+                                    >
+                                        Logout
+                                    </button>
+                                </>
+                                :
+                                <Link to="/login" className="text-white hover:text-[#FF963C]">
+                                    Login
+                                </Link>
+                            }
                         </nav>
                     </div>
                 </div>
