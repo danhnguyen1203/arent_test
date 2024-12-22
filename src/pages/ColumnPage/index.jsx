@@ -1,28 +1,16 @@
 import React from 'react';
-import { mockArticles, mockCategories } from '../../data';
-import RecommendedCategory from '../../components/features/column/categories';
-import ArticleCard from '../../components/features/column/articles';
+import RecommendedCategories from '../../components/features/column/categories';
+import Articles from '../../components/features/column/articles';
 
 const ColumnPage = () => {
     return (
         <div className="max-w-6xl mx-auto px-4 py-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                {mockCategories.map((category, index) => (
-                    <RecommendedCategory
-                        key={index}
-                        title={category.title}
-                        subtitle={category.subtitle}
-                    />
-                ))}
+            <div className="mb-12">
+                <RecommendedCategories />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-x-2 gap-y-6 mb-12">
-                {mockArticles.map((article, index) => (
-                    <ArticleCard
-                        key={index}
-                        {...article}
-                    />
-                ))}
+            <div className="mb-12">
+                <Articles />
             </div>
 
             <div className="text-center">

@@ -13,6 +13,21 @@ export const mockGraphData = [
     { month: '5月', value1: 35, value2: 20 }
 ];
 
+export const mockRecordGraphData = [
+    { month: '6月', value1: 95, value2: 95 },
+    { month: '7月', value1: 90, value2: 85 },
+    { month: '8月', value1: 65, value2: 75 },
+    { month: '9月', value1: 70, value2: 68 },
+    { month: '10月', value1: 65, value2: 63 },
+    { month: '11月', value1: 70, value2: 60 },
+    { month: '12月', value1: 65, value2: 58 },
+    { month: '1月', value1: 63, value2: 55 },
+    { month: '2月', value1: 60, value2: 53 },
+    { month: '3月', value1: 55, value2: 50 },
+    { month: '4月', value1: 52, value2: 47 },
+    { month: '5月', value1: 50, value2: 45 },
+];
+
 export const mockMealData = [
     {
         id: 1,

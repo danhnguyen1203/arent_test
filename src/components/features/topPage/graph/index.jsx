@@ -1,31 +1,26 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-import { mockGraphData } from '../../../../data';
+import LineGraph from '../../../common/graph';
+import { useTopGraphData } from '../../../../hooks/queries/useTopPage';
 
-const Graph = () => {
+const TopGraph = () => {
+    const { data, isLoading, error } = useTopGraphData();
+    if (isLoading) {
+        return <div className="animate-pulse bg-gray-700 h-full" />;
+    }
+
+    if (error) {
+        return <div className="text-white">Error loading graph data</div>;
+    }
     return (
-        <ResponsiveContainer width="100%" height={300} className="flex flex-row self-center p-4">
-            <LineChart data={mockGraphData}>
-                <CartesianGrid enableBackground={true} />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Line
-                    type="monotone"
-                    dataKey="value1"
-                    stroke="#FFBA5A"
-                    strokeWidth={2}
-                    dot={{ fill: '#FFBA5A' }}
-                />
-                <Line
-                    type="monotone"
-                    dataKey="value2"
-                    stroke="#8FE9D0"
-                    strokeWidth={2}
-                    dot={{ fill: '#8FE9D0' }}
-                />
-            </LineChart>
-        </ResponsiveContainer>
+        <LineGraph
+            data={data}
+            showYAxis={false}
+            showHorizontalGrid={false}
+            showVerticalGrid={true}
+            xAxisColor="#FFFFFF"
+            gridColor="#777777"
+        />
     );
 };
 
-export default Graph;
+export default TopGraph;
