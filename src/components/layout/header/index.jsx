@@ -1,21 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { MdOutlineNotifications } from 'react-icons/md';
-import { FiFileText, FiMenu } from 'react-icons/fi';
+import { FiFileText, FiMenu, FiX } from 'react-icons/fi';
 import { GiTrophy } from 'react-icons/gi';
 
-const NavLink = ({ to, icon: Icon, children }) => {
+const DrawerMenu = ({ isOpen }) => {
+    const menuItems = [
+        { label: '自分の記録', href: '/' },
+        { label: '体重グラフ', href: '/' },
+        { label: '目標', href: '/' },
+        { label: '選択中のコース', href: '/' },
+        { label: 'コラム一覧', href: '/' },
+        { label: '設定', href: '/' },
+    ];
+
+    if (!isOpen) return null;
+
+    return (
+        <div
+            className={`absolute top-[48px] right-4 w-[280px] bg-[#777777] shadow-lg z-50`}
+        >
+            {menuItems.map((item) => (
+                <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block px-6 py-5 text-white hover:bg-[#414141] hover:text-[#FF963C] transition-colors border-b border-[#414141]"
+                >
+                    {item.label}
+                </Link>
+            ))}
+        </div>
+    );
+};
+
+const NavLink = ({ href, icon: Icon, children }) => {
     const location = useLocation();
-    const isActive = location.pathname === to;
+    const isActive = location.pathname === href;
 
     return (
         <Link
-            to={to}
+            to={href}
             className={`
-        flex items-center space-x-1 
-        hover:text-orange-400 transition-colors
-        ${isActive ? 'text-orange-400' : 'text-white'}
-      `}
+            flex items-center space-x-1 
+            hover:text-[#FF963C] transition-colors
+            ${isActive ? 'text-[#FF963C]' : 'text-white'}
+        `}
         >
             <Icon color="#FF963C" size={20} />
             <span>{children}</span>
@@ -24,27 +53,43 @@ const NavLink = ({ to, icon: Icon, children }) => {
 };
 
 const Header = () => {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
     return (
-        <header className="bg-[#414141] text-white">
-            <div className="max-w-6xl mx-auto px-4 py-3">
-                <div className="flex items-center justify-between">
-                    <Link to="/" className="text-orange-400 text-2xl font-bold">
-                        <img
-                            src="/images/logo.png"
-                            alt="Daily meals"
-                        />
-                    </Link>
-                    <nav className="flex items-center space-x-6">
-                        <NavLink to="/" icon={FiFileText}>自分の記録</NavLink>
-                        <NavLink to="/records" icon={GiTrophy}>チャレンジ</NavLink>
-                        <NavLink to="/column" icon={MdOutlineNotifications}>お知らせ</NavLink>
-                        <button className="p-1 hover:text-orange-400 transition-colors">
-                            <FiMenu color="#FF963C" size={24} />
-                        </button>
-                    </nav>
+        <>
+            <header className="bg-[#414141] text-white relative">
+                <div className="max-w-6xl mx-auto px-4 py-3">
+                    <div className="flex items-center justify-between">
+                        <Link to="/" className="text-[#FF963C] text-2xl font-bold">
+                            <img
+                                src="/images/logo.png"
+                                alt="Logo"
+                            />
+                        </Link>
+                        <nav className="flex items-center space-x-6">
+                            <NavLink href="/" icon={FiFileText}>自分の記録</NavLink>
+                            <NavLink href="/records" icon={GiTrophy}>チャレンジ</NavLink>
+                            <NavLink href="/column" icon={MdOutlineNotifications}>お知らせ</NavLink>
+                            <div className="relative">
+                                <button
+                                    onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+                                    className="p-1 text-[#FF963C] transition-colors"
+                                >
+                                    {isDrawerOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+                                </button>
+                                <DrawerMenu isOpen={isDrawerOpen} />
+                            </div>
+                        </nav>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+            {isDrawerOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 z-40"
+                    onClick={() => setIsDrawerOpen(false)}
+                />
+            )}
+        </>
     );
 };
 
