@@ -20,3 +20,10 @@ export const useTopMealHistory = () => {
         queryFn: () => topPageService.getMealHistory(),
     });
 };
+
+export const useProgress = () => {
+    return useQuery({
+        queryKey: [...topPageKeys.all, 'progress'],
+        queryFn: () => topPageService.getProgress(),
+    });
+};

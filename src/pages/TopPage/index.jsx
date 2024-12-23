@@ -4,6 +4,7 @@ import MealCategories from '../../components/features/topPage/categories';
 import MealHistory from '../../components/features/topPage/mealHistory';
 import Card from '../../components/common/card';
 import Button from '../../components/common/button';
+import Progress from '../../components/features/topPage/progress';
 
 const TopPage = () => {
     return (
@@ -11,12 +12,7 @@ const TopPage = () => {
             <section className="mb-8">
                 <Card className='!p-0'>
                     <div className="grid grid-cols-1 md:grid-cols-2 bg-[#2E2E2E]">
-                        <div className="relative">
-                            <img
-                                src="/images/d01.jpg"
-                                alt="Daily meals"
-                            />
-                        </div>
+                        <Progress />
                         <Graph />
                     </div>
                 </Card>
