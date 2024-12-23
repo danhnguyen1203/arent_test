@@ -1,5 +1,5 @@
 import { ApiClient } from '../../apiClient';
-import { mockGraphData, mockMealData, mockCategories } from '../../../data';
+import { mockGraphData, mockMealData } from '../../../data';
 
 class TopPageService extends ApiClient {
     constructor() {
@@ -12,6 +12,13 @@ class TopPageService extends ApiClient {
 
     async getMealHistory() {
         return this.get('/meals', mockMealData);
+    }
+    async getProgress() {
+        return this.get('/progress', {
+            date: '05/21',
+            progress: 75,
+            image: '/images/d01.jpg'
+        });
     }
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { mockMealData } from '../../../../data';
 import { useTopMealHistory } from '../../../../hooks/queries/useTopPage';
 
 const MealCard = ({ image, date, type }) => (
